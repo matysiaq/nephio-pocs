@@ -153,6 +153,12 @@ func free5gcUPFDeployment(upfDeploy *upfdeployv1alpha1.UPFDeployment) (*appsv1.D
 							Name:            "upf",
 							Image:           upfImage,
 							ImagePullPolicy: "Always",
+							SecurityContext: &apiv1.SecurityContext{
+								Capabilities: &apiv1.Capabilities{
+									Add:  []apiv1.Capability{"NET_ADMIN"},
+									Drop: nil,
+								},
+							},
 							Ports: []apiv1.ContainerPort{
 								{
 									Name:          "n4",
